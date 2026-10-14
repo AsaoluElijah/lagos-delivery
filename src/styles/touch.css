@@ -1,0 +1,165 @@
+/* ==========================================================================
+   On-screen controls for touch devices
+   ========================================================================== */
+
+.touch {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 25;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 calc(16px + var(--safe-r)) calc(18px + var(--safe-b)) calc(16px + var(--safe-l));
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------- steering */
+
+.touch__steer {
+  position: relative;
+  flex: 1 1 auto;
+  max-width: 320px;
+  height: 92px;
+  border: 1px solid var(--hairline);
+  border-radius: 46px;
+  background: rgba(11, 17, 24, 0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-card);
+  pointer-events: auto;
+  touch-action: none;
+  overflow: hidden;
+}
+
+.touch__steer-track {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  right: 14px;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.touch__steer-hint {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.86rem;
+  color: rgba(253, 247, 234, 0.3);
+  pointer-events: none;
+}
+
+.touch__steer-hint--l {
+  left: 16px;
+}
+
+.touch__steer-hint--r {
+  right: 16px;
+}
+
+.touch__knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 66px;
+  height: 66px;
+  margin-left: -33px;
+  transform: translate(0, -50%);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #ffe489, var(--danfo) 62%, #c89a10);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.45),
+    inset 0 -4px 10px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  transition: transform 0.07s linear;
+}
+
+/* --------------------------------------------------------------- pedals */
+
+.touch__pedals {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  pointer-events: none;
+}
+
+.pedal {
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  color: #04281a;
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: none;
+  transition:
+    transform 0.08s ease,
+    filter 0.12s ease;
+}
+
+.pedal--gas {
+  width: 104px;
+  height: 104px;
+  background: linear-gradient(170deg, #5ff0a9, var(--naira) 58%, var(--naira-dim));
+  box-shadow:
+    0 8px 0 rgba(13, 84, 54, 0.9),
+    0 14px 30px rgba(0, 0, 0, 0.4);
+}
+
+.pedal--brake {
+  width: 76px;
+  height: 76px;
+  background: linear-gradient(170deg, #ffd0a0, #ff9f45 58%, #d9701c);
+  box-shadow:
+    0 7px 0 rgba(130, 63, 10, 0.9),
+    0 12px 26px rgba(0, 0, 0, 0.38);
+  font-size: 1.2rem;
+}
+
+.pedal--active {
+  transform: translateY(5px);
+  filter: brightness(1.14);
+}
+
+.pedal--gas.pedal--active {
+  box-shadow:
+    0 3px 0 rgba(13, 84, 54, 0.9),
+    0 6px 16px rgba(0, 0, 0, 0.36);
+}
+
+.pedal--brake.pedal--active {
+  box-shadow:
+    0 2px 0 rgba(130, 63, 10, 0.9),
+    0 6px 14px rgba(0, 0, 0, 0.34);
+}
+
+/* Landscape phones: shrink so controls never eat the play area. */
+@media (max-height: 460px) {
+  .touch__steer {
+    height: 72px;
+    border-radius: 36px;
+    max-width: 260px;
+  }
+
+  .touch__knob {
+    width: 52px;
+    height: 52px;
+    margin-left: -26px;
+  }
+
+  .pedal--gas {
+    width: 80px;
+    height: 80px;
+  }
+
+  .pedal--brake {
+    width: 62px;
+    height: 62px;
+  }
+}
